@@ -4,10 +4,10 @@ window.onload = async () => {
 
 	const listElement = document.getElementById("recordingsList");
 	recordings.forEach(recording => {
-		node = document.createElement("li")
+		const node = document.createElement("li")
 		node.append("ID: " + recording.id + ", Fecha: " + recording.created_at)
 
-		downloadButton = document.createElement("a")
+		const downloadButton = document.createElement("a")
 		downloadButton.href = process.env.API_URL + "/recordings/" + recording.id
 		downloadButton.append("Descargar")
 
