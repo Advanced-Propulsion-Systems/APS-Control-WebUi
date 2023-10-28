@@ -22,8 +22,15 @@ window.onload = () => {
       }
     }
   });
-	const wsURL = new URL(process.env.API_URL)
-	const socket = new WebSocket("ws://" + wsURL.host + "/ws")
+	const apiURL = new URL(process.env.API_URL)
+	let wsProtocol;
+	if (apiURL.protocol === "https:") {
+		wsProtocol = "wss://"
+	} else {
+		wsProtocol = "ws://"
+	}
+
+	const socket = new WebSocket(wsProtocol + apiURL.host + "/ws")
 	socket.addEventListener("message", async event => {
 		console.log(event.data)
 		msg = JSON.parse(event.data)
