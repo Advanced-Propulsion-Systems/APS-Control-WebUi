@@ -1,3 +1,5 @@
+let recordingStatus = false
+
 window.onload = () => {
   const ctx = document.getElementById('sensorsChart');
   sensorsChart = new Chart(ctx, {
@@ -18,7 +20,7 @@ window.onload = () => {
       }
     }
   });
-	const socket = new WebSocket("ws://localhost:8000/live/ws")
+	const socket = new WebSocket("ws://localhost:8000/ws")
 	socket.addEventListener("message", async event => {
 		console.log(event.data)
 		msg = JSON.parse(event.data)
@@ -43,13 +45,16 @@ window.onload = () => {
 		}
 	})
 
-	let recordingStatus = false
-	document.getElementById("recordingButton").onclick = e => {
+	document.getElementById("recordingButton").onclick = async e => {
 		e.preventDefault()
 		if (recordingStatus) {
-			
+			recordingStatus = false
+			e.target.textContent = "Grabar"
+			await socket.send(JSON.stringify({cmd: "stop-recording"}))
 		} else {
-
+			recordingStatus = true
+			e.target.textContent = "Parar grabación"
+			await socket.send(JSON.stringify({cmd: "start-recording"}))
 		}
 	}
 
