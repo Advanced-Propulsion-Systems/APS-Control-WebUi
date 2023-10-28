@@ -33,7 +33,7 @@ window.onload = () => {
 	const socket = new WebSocket(wsProtocol + apiURL.host + "/ws")
 	socket.addEventListener("message", async event => {
 		console.log(event.data)
-		msg = JSON.parse(event.data)
+		const msg = JSON.parse(event.data)
 		switch (msg.type) {
 			case "setup":
 				sensorsChart.data.datasets = msg.sensors.map(setup => {
