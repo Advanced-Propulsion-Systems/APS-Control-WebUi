@@ -22,7 +22,8 @@ window.onload = () => {
       }
     }
   });
-	const socket = new WebSocket("ws://localhost:8000/ws")
+	const wsURL = new URL(process.env.API_URL)
+	const socket = new WebSocket("ws://" + wsURL.host + "/ws")
 	socket.addEventListener("message", async event => {
 		console.log(event.data)
 		msg = JSON.parse(event.data)
