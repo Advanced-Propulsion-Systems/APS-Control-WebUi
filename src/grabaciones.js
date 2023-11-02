@@ -5,13 +5,20 @@ window.onload = async () => {
 	const listElement = document.getElementById("recordingsList");
 	recordings.forEach(recording => {
 		const node = document.createElement("li")
-		node.append("ID: " + recording.id + ", Fecha: " + recording.created_at)
+		node.append("Nombre: " + recording.name + ", Fecha: " + recording.created_at + ", ID: " + recording.id)
 
 		const downloadButton = document.createElement("a")
 		downloadButton.href = process.env.API_URL + "/recordings/" + recording.id
 		downloadButton.append("Descargar")
 
+		const deleteButton = document.createElement("button")
+		deleteButton.onclick = async e => {
+			await fetch(process.env.API_URL + "/recordings/" + recording.id, {method: "DELETE"})
+		}
+		deleteButton.append("Borrar")
+
 		listElement.append(node)
 		listElement.append(downloadButton)
+		listElement.append(deleteButton)
 	})
 }
