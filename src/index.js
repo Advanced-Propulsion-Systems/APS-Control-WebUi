@@ -55,16 +55,21 @@ window.onload = () => {
 		}
 	})
 
+	const filenameInput = document.getElementById("filenameInput")
+	console.log(filenameInput)
 	document.getElementById("recordingButton").onclick = async e => {
 		e.preventDefault()
 		if (recordingStatus) {
 			recordingStatus = false
 			e.target.textContent = "Grabar"
+			filenameInput.disabled = false
 			await socket.send(JSON.stringify({cmd: "stop-recording"}))
 		} else {
 			recordingStatus = true
 			e.target.textContent = "Parar grabación"
-			await socket.send(JSON.stringify({cmd: "start-recording"}))
+			filenameInput.disabled = true
+			console.log(filenameInput)
+			await socket.send(JSON.stringify({cmd: "start-recording", name: filenameInput.value}))
 		}
 	}
 
