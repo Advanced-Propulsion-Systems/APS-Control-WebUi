@@ -73,4 +73,11 @@ window.onload = () => {
 		}
 	}
 
+	document.getElementById("clearGraphsButton").onclick = e => {
+		e.preventDefault()
+		sensorsChart.data.datasets.forEach(dataset => {
+			dataset.data.length = 0
+		})
+		sensorsChart.update()
+	}
 }
