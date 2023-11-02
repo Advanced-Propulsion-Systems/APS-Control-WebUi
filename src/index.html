@@ -1,27 +1,28 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-	<title>Panel de Control - APS</title>
-	<meta charset="UTF-8">
-	<script type="module" src="index.js"></script>
-</head>
+  <head>
+    <title>Panel de Control - APS</title>
+    <meta charset="UTF-8" />
+    <script type="module" src="index.js"></script>
+  </head>
 
-<body>
-	<nav>
-		<h1>APS</h1>
-		<a href="grabaciones.html">Grabaciones Pasadas</a>
-	</nav>
-<main>
-	<article>
-		<canvas id="sensorsChart"></canvas>
-	</article>
-	<button id="clearGraphsButton">Limpiar</button>
-	<label>Nombre de archivo:
-	<input id="filenameInput" type="text"></input>
-	</label>
-	<button id="recordingButton">Grabar</button>
-	<button id="igniteButton">Ignite</button>
-	<button id="stopEngineButton">Parar motor</button>
-</main>
-</body>
+  <body>
+    <nav>
+      <h1>APS</h1>
+      <a href="grabaciones.html">Grabaciones Pasadas</a>
+    </nav>
+    <main>
+      <article>
+        <canvas id="sensorsChart"></canvas>
+      </article>
+      <button id="clearGraphsButton">Limpiar</button>
+      <label
+        >Nombre de archivo:
+        <input id="filenameInput" type="text" />
+      </label>
+      <button id="recordingButton">Grabar</button>
+      <button id="igniteButton">Ignite</button>
+      <button id="stopEngineButton">Parar motor</button>
+    </main>
+  </body>
 </html>
