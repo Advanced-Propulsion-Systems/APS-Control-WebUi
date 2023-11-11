@@ -3,6 +3,8 @@
   <head>
     <title>Panel de Control - APS</title>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="site.css" />
     <script type="module" src="index.js"></script>
   </head>
 
@@ -11,18 +13,25 @@
       <h1>APS</h1>
       <a href="grabaciones.html">Grabaciones Pasadas</a>
     </nav>
-    <main>
+    <main class="container">
       <article>
-        <canvas id="sensorsChart"></canvas>
+        <canvas class="col" id="sensorsChart"></canvas>
+        <canvas class="col" id="miniSensorChart"></canvas>
       </article>
-      <button id="clearGraphsButton">Limpiar</button>
-      <label
-        >Nombre de archivo:
-        <input id="filenameInput" type="text" />
-      </label>
-      <button id="recordingButton">Grabar</button>
-      <button id="igniteButton">Ignite</button>
-      <button id="stopEngineButton">Parar motor</button>
+      <section class="fixed-bottom">
+	      <div class="container" class="col">
+		      <button id="clearGraphsButton">Limpiar</button>
+		      <label
+				      >Nombre de archivo:
+				      <input id="filenameInput" type="text" />
+		      </label>
+			      <button id="recordingButton">Grabar</button>
+	      </div>
+	      <div class="container" class="col">
+		      <button id="igniteButton">Ignite</button>
+		      <button id="stopEngineButton">Parar motor</button>
+	      </div>
+      </section>
     </main>
   </body>
 </html>

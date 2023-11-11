@@ -9,11 +9,13 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@parcel/transformer-sass": "2.10.2",
     "eslint": "^8.52.0",
     "parcel": "^2.10.1",
     "prettier": "3.0.3"
   },
   "dependencies": {
+    "bootstrap": "^5.3.2",
     "chart.js": "^4.4.0"
   }
 }
