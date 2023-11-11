@@ -1,6 +1,7 @@
 import Chart from "chart.js/auto";
 
 let recordingStatus = false;
+const datasets = new Object();
 
 window.onload = () => {
   const ctx = document.getElementById("sensorsChart");
@@ -38,16 +39,21 @@ window.onload = () => {
     const msg = JSON.parse(event.data);
     switch (msg.type) {
       case "setup":
-        sensorsChart.data.datasets = msg.sensors.map((setup) => {
-          return { label: setup.id };
+        sensorsChart.data.datasets.length = 0;
+        msg.sensors.forEach((sensor) => {
+          datasets[sensor.id] = { label: sensor.id, data: [] };
+          sensorsChart.data.datasets.push(datasets[sensor.id]);
         });
+
         sensorsChart.update();
         break;
 
       case "data":
-        sensorsChart.data.datasets.forEach((dataset) => {
-          dataset.data.push(msg.data[dataset.label]);
+        datasets[msg.data.id].data.push({
+          x: msg.data.time,
+          y: msg.data.value,
         });
+
         sensorsChart.update();
         break;
 
