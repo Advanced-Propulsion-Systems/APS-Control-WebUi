@@ -20,9 +20,16 @@ window.onload = async () => {
 
     const deleteButton = document.createElement("button");
     deleteButton.onclick = async () => {
-      await fetch(process.env.API_URL + "/recordings/" + recording.id, {
-        method: "DELETE",
-      });
+      const r = await fetch(
+        process.env.API_URL + "/recordings/" + recording.id,
+        {
+          method: "DELETE",
+        },
+      );
+
+      if (r.ok) {
+        listElement.removeChild(node);
+      }
     };
     deleteButton.append("Borrar");
 
