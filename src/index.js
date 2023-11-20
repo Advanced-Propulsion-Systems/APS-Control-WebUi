@@ -89,4 +89,29 @@ window.onload = () => {
     });
     sensorsChart.update();
   };
+
+  const toggleRelay = async (id, state) => {
+    await socket.send(JSON.stringify({ cmd: "toggle-relay", id, state }));
+  };
+
+  const relayControl = document.getElementById("relayControl");
+  const relayCount = 4;
+  for (let i = 0; i < relayCount; i++) {
+    const onButton = document.createElement("button");
+    onButton.textContent = "ON";
+    onButton.onclick = (e) => {
+      e.preventDefault();
+      toggleRelay(i, true);
+    };
+
+    const offButton = document.createElement("button");
+    offButton.textContent = "OFF";
+    offButton.onclick = (e) => {
+      e.preventDefault();
+      toggleRelay(i, false);
+    };
+
+    relayControl.appendChild(onButton);
+    relayControl.appendChild(offButton);
+  }
 };
