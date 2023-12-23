@@ -17,6 +17,7 @@ window.onload = () => {
       ],
     },
     options: {
+	    animation: false,
       showLine: true,
       scales: {
         y: {
@@ -53,6 +54,7 @@ window.onload = () => {
           x: msg.data.time,
           y: msg.data.value,
         });
+	sensorsChart.options.scales.x = {min: msg.data.time - 5, max: msg.data.time}
 
         sensorsChart.update();
         break;
