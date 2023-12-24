@@ -14,8 +14,8 @@ if (apiURL.protocol === "https:") {
 function App() {
   const sensorsChartRef = useRef();
   const { lastJsonMessage } = useWebSocket(wsProtocol + apiURL.host + "/ws", {
-	  retryOnError: true,
-	  shouldReconnect: () => true
+    retryOnError: true,
+    shouldReconnect: () => true,
   });
   const [datasets, setDatasets] = useState({
     old: {
