@@ -12,8 +12,9 @@ if (apiURL.protocol === "https:") {
 }
 
 function App() {
-  const sensorsChartRef = useRef();
-  const { lastJsonMessage } = useWebSocket(wsProtocol + apiURL.host + "/ws", {
+  const filenameInputRef = useRef();
+	const [recording, setRecording] = useState(false);
+  const { lastJsonMessage, sendJsonMessage } = useWebSocket(wsProtocol + apiURL.host + "/ws", {
     retryOnError: true,
     shouldReconnect: () => true,
   });
@@ -41,10 +42,8 @@ function App() {
 
     console.log(lastJsonMessage);
     const msg = lastJsonMessage;
-    const sensorsChart = sensorsChartRef.current;
     switch (msg.type) {
       case "setup":
-        sensorsChart.data.datasets.length = 0;
         setDatasets({});
         msg.sensors.forEach((sensor) => {
           setDatasets((datasets) => {
@@ -89,13 +88,33 @@ function App() {
     }
   }, [lastJsonMessage]);
 
+const handleRecordClick = () => {
+	if (recording) {
+		sendJsonMessage({cmd: "stop-recording"})
+	} else {
+		sendJsonMessage({cmd: "start-recording", name: filenameInputRef.current.value})
+	}
+	setRecording(!recording)
+}
+
   return (
     <>
       <Scatter
-        ref={sensorsChartRef}
         data={{ datasets: Object.values(datasets) }}
         options={chartOptions}
       />
+	  <aside>
+	  <button>Limpiar</button>
+          <label
+            >Nombre de archivo:
+            <input type="text" ref={filenameInputRef} disabled={recording} />
+          </label>
+          <button onClick={handleRecordClick}>{recording ? "Parar grabación" : "Grabar"}</button>
+	  <div>
+	  	<button>Ignite</button>
+	  	<button>Parar Motor</button>
+	  </div>
+	  </aside>
     </>
   );
 }
