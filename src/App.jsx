@@ -3,6 +3,8 @@ import "chart.js/auto";
 import { Scatter } from "react-chartjs-2";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 
+const relayCount = 4;
+
 const apiURL = new URL(import.meta.env.VITE_API_URL);
 let wsProtocol;
 if (apiURL.protocol === "https:") {
@@ -103,6 +105,28 @@ function App() {
     setRecording(!recording);
   };
 
+  const relayButtons = [];
+  for (let i = 0; i < relayCount; i++) {
+    relayButtons.push(
+      <div>
+        <button
+          onClick={() =>
+            sendJsonMessage({ cmd: "toggle-relay", id: i, state: true })
+          }
+        >
+          ON
+        </button>
+        <button
+          onClick={() =>
+            sendJsonMessage({ cmd: "toggle-relay", id: i, state: false })
+          }
+        >
+          OFF
+        </button>
+      </div>,
+    );
+  }
+
   return (
     <>
       <Scatter
@@ -122,6 +146,7 @@ function App() {
           <button>Ignite</button>
           <button>Parar Motor</button>
         </div>
+        {relayButtons.map((button) => button)}
       </aside>
     </>
   );
