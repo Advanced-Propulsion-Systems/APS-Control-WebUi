@@ -13,11 +13,14 @@ if (apiURL.protocol === "https:") {
 
 function App() {
   const filenameInputRef = useRef();
-	const [recording, setRecording] = useState(false);
-  const { lastJsonMessage, sendJsonMessage } = useWebSocket(wsProtocol + apiURL.host + "/ws", {
-    retryOnError: true,
-    shouldReconnect: () => true,
-  });
+  const [recording, setRecording] = useState(false);
+  const { lastJsonMessage, sendJsonMessage } = useWebSocket(
+    wsProtocol + apiURL.host + "/ws",
+    {
+      retryOnError: true,
+      shouldReconnect: () => true,
+    },
+  );
   const [datasets, setDatasets] = useState({
     old: {
       label: "# of Votes",
@@ -88,14 +91,17 @@ function App() {
     }
   }, [lastJsonMessage]);
 
-const handleRecordClick = () => {
-	if (recording) {
-		sendJsonMessage({cmd: "stop-recording"})
-	} else {
-		sendJsonMessage({cmd: "start-recording", name: filenameInputRef.current.value})
-	}
-	setRecording(!recording)
-}
+  const handleRecordClick = () => {
+    if (recording) {
+      sendJsonMessage({ cmd: "stop-recording" });
+    } else {
+      sendJsonMessage({
+        cmd: "start-recording",
+        name: filenameInputRef.current.value,
+      });
+    }
+    setRecording(!recording);
+  };
 
   return (
     <>
@@ -103,18 +109,20 @@ const handleRecordClick = () => {
         data={{ datasets: Object.values(datasets) }}
         options={chartOptions}
       />
-	  <aside>
-	  <button>Limpiar</button>
-          <label
-            >Nombre de archivo:
-            <input type="text" ref={filenameInputRef} disabled={recording} />
-          </label>
-          <button onClick={handleRecordClick}>{recording ? "Parar grabación" : "Grabar"}</button>
-	  <div>
-	  	<button>Ignite</button>
-	  	<button>Parar Motor</button>
-	  </div>
-	  </aside>
+      <aside>
+        <button>Limpiar</button>
+        <label>
+          Nombre de archivo:
+          <input type="text" ref={filenameInputRef} disabled={recording} />
+        </label>
+        <button onClick={handleRecordClick}>
+          {recording ? "Parar grabación" : "Grabar"}
+        </button>
+        <div>
+          <button>Ignite</button>
+          <button>Parar Motor</button>
+        </div>
+      </aside>
     </>
   );
 }
