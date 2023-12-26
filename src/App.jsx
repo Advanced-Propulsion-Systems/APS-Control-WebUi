@@ -58,13 +58,20 @@ function App() {
         break;
 
       case "data":
+        const minValue = msg.data.time - 5;
+        const maxValue = msg.data.time;
+
         setDatasets((datasets) => {
           return {
             ...datasets,
             [msg.data.id]: {
               ...datasets[msg.data.id],
               data: [
-                ...datasets[msg.data.id].data,
+                ...datasets[msg.data.id].data.slice(
+                  datasets[msg.data.id].data.findIndex(
+                    (datum) => datum.x >= minValue,
+                  ),
+                ),
                 {
                   x: msg.data.time,
                   y: msg.data.value,
@@ -80,8 +87,8 @@ function App() {
             scales: {
               ...chartOptions.scales,
               x: {
-                min: msg.data.time - 5,
-                max: msg.data.time,
+                min: minValue,
+                max: maxValue,
               },
             },
           };
