@@ -8,6 +8,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import RecordingsIndex from "./RecordingsIndex.jsx";
+import RecordingShow from "./RecordingShow.jsx";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -32,6 +33,16 @@ const router = createBrowserRouter([
       {
         path: "/grabaciones",
         element: <RecordingsIndex />,
+        children: [
+          {
+            index: true,
+            element: <span>hola</span>,
+          },
+          {
+            path: ":recordingId",
+            element: <RecordingShow />,
+          },
+        ],
       },
     ],
   },
