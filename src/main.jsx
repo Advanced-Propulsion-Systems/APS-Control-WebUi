@@ -1,15 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
-import {
-  createBrowserRouter,
-  Link,
-  Outlet,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import RecordingsIndex from "./RecordingsIndex.jsx";
 import RecordingShow from "./RecordingShow.jsx";
 import "./index.css";
+import { Link } from "./components/common.jsx";
 
 const router = createBrowserRouter([
   {

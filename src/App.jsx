@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import "chart.js/auto";
 import { Scatter } from "react-chartjs-2";
 import useWebSocket, { ReadyState } from "react-use-websocket";
+import { Button } from "./components/common";
 
 const relayCount = 4;
 
@@ -115,21 +116,23 @@ function App() {
   const relayButtons = [];
   for (let i = 0; i < relayCount; i++) {
     relayButtons.push(
-      <div>
-        <button
+      <div key={i}>
+        <Button
+          className="btn btn-warning"
           onClick={() =>
             sendJsonMessage({ cmd: "toggle-relay", id: i, state: true })
           }
         >
           ON
-        </button>
-        <button
+        </Button>
+        <Button
+          className="btn-error"
           onClick={() =>
             sendJsonMessage({ cmd: "toggle-relay", id: i, state: false })
           }
         >
           OFF
-        </button>
+        </Button>
       </div>,
     );
   }
@@ -141,17 +144,17 @@ function App() {
         options={chartOptions}
       />
       <aside>
-        <button>Limpiar</button>
+        <Button>Limpiar</Button>
         <label>
           Nombre de archivo:
           <input type="text" ref={filenameInputRef} disabled={recording} />
         </label>
-        <button onClick={handleRecordClick}>
+        <Button onClick={handleRecordClick}>
           {recording ? "Parar grabación" : "Grabar"}
-        </button>
+        </Button>
         <div>
-          <button>Ignite</button>
-          <button>Parar Motor</button>
+          <Button>Ignite</Button>
+          <Button>Parar Motor</Button>
         </div>
         {relayButtons.map((button) => button)}
       </aside>
