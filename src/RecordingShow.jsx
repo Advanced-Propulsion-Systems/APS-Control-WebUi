@@ -1,17 +1,17 @@
 import useSWR from "swr";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Link, Button } from "./components/common";
 import "chart.js/auto";
 import { Scatter } from "react-chartjs-2";
-import { useState } from "react";
 import { parse } from "csv-parse/sync";
+import { mutate } from "swr";
 
 export default function RecordingShow() {
+	const navigate = useNavigate()
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const {
     data: recording,
     isLoading,
-    mutate,
   } = useSWR(
     import.meta.env.VITE_API_URL + "/recordings/" + useParams().recordingId,
     fetcher,
@@ -79,8 +79,10 @@ export default function RecordingShow() {
   const handleDeleteRecording = () => {
     fetch(import.meta.env.VITE_API_URL + "/recordings/" + recording.id, {
       method: "DELETE",
+    }).then(() => {
+	    mutate(import.meta.env.VITE_API_URL + "/recordings")
+	    navigate("/grabaciones")
     });
-    mutate();
   };
 
   return (
