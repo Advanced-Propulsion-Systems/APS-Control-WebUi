@@ -34,6 +34,8 @@ function App() {
   const [chartOptions, setChartOptions] = useState({
     animation: false,
     showLine: true,
+    responsive: true,
+    maintainAspectRatio: false,
     scales: {
       y: {
         beginAtZero: true,
@@ -116,7 +118,7 @@ function App() {
   const relayButtons = [];
   for (let i = 0; i < relayCount; i++) {
     relayButtons.push(
-      <div key={i}>
+      <div key={i} className="flex flex-col">
         <Button
           className="btn btn-warning"
           onClick={() =>
@@ -139,25 +141,32 @@ function App() {
 
   return (
     <>
-      <Scatter
-        data={{ datasets: Object.values(datasets) }}
-        options={chartOptions}
-      />
-      <aside>
-        <Button>Limpiar</Button>
-        <label>
-          Nombre de archivo:
-          <input type="text" ref={filenameInputRef} disabled={recording} />
-        </label>
-        <Button onClick={handleRecordClick}>
-          {recording ? "Parar grabación" : "Grabar"}
-        </Button>
-        <div>
-          <Button>Ignite</Button>
-          <Button>Parar Motor</Button>
+      <div className="flex-auto flex flex-col items-stretch">
+        <div className="flex-auto">
+          <Scatter
+            className="absolute"
+            data={{ datasets: Object.values(datasets) }}
+            options={chartOptions}
+          />
         </div>
-        {relayButtons.map((button) => button)}
-      </aside>
+        <aside>
+          <Button>Limpiar</Button>
+          <label>
+            Nombre de archivo:
+            <input type="text" ref={filenameInputRef} disabled={recording} />
+          </label>
+          <Button onClick={handleRecordClick}>
+            {recording ? "Parar grabación" : "Grabar"}
+          </Button>
+          <div>
+            <Button>Ignite</Button>
+            <Button>Parar Motor</Button>
+          </div>
+          <div className="flex flex-row">
+            {relayButtons.map((button) => button)}
+          </div>
+        </aside>
+      </div>
     </>
   );
 }
