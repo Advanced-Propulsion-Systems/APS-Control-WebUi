@@ -16,7 +16,7 @@ const router = createBrowserRouter([
           <Link to="/">Gráfico</Link>
           <Link to="/grabaciones">Grabaciones</Link>
         </nav>
-        <main>
+        <main className="flex-auto flex">
           <Outlet />
         </main>
       </>

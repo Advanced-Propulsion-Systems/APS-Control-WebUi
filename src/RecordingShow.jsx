@@ -1,5 +1,6 @@
 import useSWR from "swr";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { Link, Button } from "./components/common";
 import "chart.js/auto";
 import { Scatter } from "react-chartjs-2";
 import { useState } from "react";
@@ -46,7 +47,7 @@ export default function RecordingShow() {
           };
         });
       });
-  const { data: datasets, isChartLoading } = useSWR(
+  const { data: datasets, isLoading: isChartLoading } = useSWR(
     import.meta.env.VITE_API_URL +
       "/recordings/" +
       useParams().recordingId +
@@ -66,6 +67,8 @@ export default function RecordingShow() {
     animation: true,
     showLine: true,
     spanGaps: true,
+    responsive: true,
+    maintainAspectRatio: false,
     scales: {
       y: {
         beginAtZero: true,
@@ -86,35 +89,46 @@ export default function RecordingShow() {
         <span>loading...</span>
       ) : (
         <>
-          <h2>{recording.name}</h2>
-          <span>{recording.id}</span>
-          <br />
+          <div>
+            <h2 className="text-2xl font-bold">{recording.name}</h2>
+            <span>{recording.id}</span>
+          </div>
           <span>Fecha: {recording.created_at}</span>
-          <br />
           <span>Duración: No implementado 😖</span>
-          <br />
 
-          <Link
-            to={
-              import.meta.env.VITE_API_URL +
-              "/recordings/" +
-              recording.id +
-              "/data"
-            }
-            download
-          >
-            Descargar
-          </Link>
-          <button onClick={handleDeleteRecording}>Borrar</button>
+          <div className="flex flex-row justify-between items-center">
+            <Link
+              className="btn-primary"
+              to={
+                import.meta.env.VITE_API_URL +
+                "/recordings/" +
+                recording.id +
+                "/data"
+              }
+              download
+            >
+              Descargar
+            </Link>
+            <Button className="btn-error" onClick={handleDeleteRecording}>
+              Borrar
+            </Button>
+          </div>
 
-          {isChartLoading ? (
-            <span>Loading...</span>
-          ) : (
-            <Scatter
-              data={isChartLoading ? { datasets: [] } : { datasets: datasets }}
-              options={chartOptions}
-            />
-          )}
+          <div className="flex-auto">
+            {isChartLoading ? (
+              <span>Loading...</span>
+            ) : (
+              <Scatter
+                className="absolute"
+                data={
+                  console.log(datasets) || isChartLoading
+                    ? { datasets: [] }
+                    : { datasets: datasets }
+                }
+                options={chartOptions}
+              />
+            )}
+          </div>
         </>
       )}
     </>

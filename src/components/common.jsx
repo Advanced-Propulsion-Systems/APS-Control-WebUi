@@ -1,13 +1,17 @@
 import { Link as ReactLink } from "react-router-dom";
 
-export function Button({ className, children }) {
-  return <button className={"btn m-1 " + className}>{children}</button>;
+export function Button(props) {
+  return (
+    <button {...props} className={"btn m-1 " + props.className}>
+      {props.children}
+    </button>
+  );
 }
 
-export function Link({ className, to, children }) {
+export function Link(props) {
   return (
-    <ReactLink className={"btn " + className} to={to}>
-      {children}
+    <ReactLink {...props} className={"btn " + props.className}>
+      {props.children}
     </ReactLink>
   );
 }
