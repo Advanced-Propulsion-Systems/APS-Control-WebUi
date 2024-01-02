@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { Link, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 
 export default function RecordingsIndex() {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -19,11 +19,11 @@ export default function RecordingsIndex() {
               {recordings.map((recording) => {
                 return (
                   <li key={recording.id}>
-                    <Link to={"/grabaciones/" + recording.id}>
+                    <NavLink to={"/grabaciones/" + recording.id}>
                       {recording.name}
                       <br />
                       {recording.created_at}
-                    </Link>
+                    </NavLink>
                   </li>
                 );
               })}

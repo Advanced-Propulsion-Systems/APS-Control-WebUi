@@ -153,7 +153,12 @@ function App() {
           <Button>Limpiar</Button>
           <label>
             Nombre de archivo:
-            <input type="text" ref={filenameInputRef} disabled={recording} />
+            <input
+              type="text"
+              className="input input-bordered"
+              ref={filenameInputRef}
+              disabled={recording}
+            />
           </label>
           <Button onClick={handleRecordClick}>
             {recording ? "Parar grabación" : "Grabar"}

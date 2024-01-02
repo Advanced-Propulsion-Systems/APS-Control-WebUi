@@ -5,16 +5,16 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import RecordingsIndex from "./RecordingsIndex.jsx";
 import RecordingShow from "./RecordingShow.jsx";
 import "./index.css";
-import { Link } from "./components/common.jsx";
+import { NavLink } from "./components/common.jsx";
 
 const router = createBrowserRouter([
   {
     element: (
       <>
-        <nav>
-          <h1>APS</h1>
-          <Link to="/">Gráfico</Link>
-          <Link to="/grabaciones">Grabaciones</Link>
+        <nav className="py-3">
+          <h1 className="text-3xl inline px-5">APS🚀</h1>
+          <NavLink to="/">Gráfico</NavLink>
+          <NavLink to="/grabaciones">Grabaciones</NavLink>
         </nav>
         <main className="flex-auto flex">
           <Outlet />

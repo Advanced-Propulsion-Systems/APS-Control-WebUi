@@ -90,8 +90,8 @@ export default function RecordingShow() {
       ) : (
         <>
           <div>
-            <h2 className="text-2xl font-bold">{recording.name}</h2>
-            <span>{recording.id}</span>
+            <h2 className="text-2xl font-bold inline">{recording.name}</h2>
+            <span className="text-sm">{recording.id}</span>
           </div>
           <span>Fecha: {recording.created_at}</span>
           <span>Duración: No implementado 😖</span>

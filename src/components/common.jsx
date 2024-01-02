@@ -1,4 +1,4 @@
-import { Link as ReactLink } from "react-router-dom";
+import { Link as ReactLink, NavLink as ReactNavLink } from "react-router-dom";
 
 export function Button(props) {
   return (
@@ -13,5 +13,18 @@ export function Link(props) {
     <ReactLink {...props} className={"btn " + props.className}>
       {props.children}
     </ReactLink>
+  );
+}
+
+export function NavLink(props) {
+  return (
+    <ReactNavLink
+      {...props}
+      className={({ isActive }) =>
+        ["btn", isActive ? "btn-active" : ""].join(" ")
+      }
+    >
+      {props.children}
+    </ReactNavLink>
   );
 }
